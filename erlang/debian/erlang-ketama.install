@@ -1,0 +1,2 @@
+ketama_erlang_driver /usr/bin
+ketama.beam /usr/lib/erlang/lib/erlang-ketama-1.0/ebin

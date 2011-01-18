@@ -1,0 +1,5 @@
+erlang-ketama (1.0-1) unstable; urgency=low
+
+  * Debian packaging.
+
+ -- Andrei Soroker <andrei@rd.io>  Mon, 17 Jan 2011 16:51:39 -0800
