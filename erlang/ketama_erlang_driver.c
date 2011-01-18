@@ -44,8 +44,8 @@ int main(int argc, char **argv)
         sprintf((char *)&buffer, "%s",m->ip);
         int respleni = strlen(m->ip);
         char l = (0xff & respleni);
-        write(1, &l, 1);
-        write(1, (char*)&buffer, respleni);
+        if ( write(1, &l, 1) ) {};
+        if ( write(1, (char*)&buffer, respleni) ) {};
     }
 
     return 0;
