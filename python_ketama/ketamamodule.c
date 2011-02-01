@@ -121,6 +121,8 @@ PY_DEF(pyketama_hashi, self, args) {
     if (PyArg_ParseTuple(args, "s", &data)) {
         r = Py_BuildValue("I", ketama_hashi(data));
     }
+
+    return r;
 }
 
 PyMODINIT_FUNC initketama(void) {
