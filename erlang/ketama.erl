@@ -24,6 +24,8 @@ start_link(ServersFile) ->
 start_link(ServersFile, BinPath) ->
     supervisor:start_link({local, ?MODULE}, ?MODULE, [[ServersFile, BinPath], ?FARM_SIZE]).
 
+getserver(Key) when is_tuple(Key) ->
+    getserver(term_to_binary(Key));
 getserver(Key) ->
     X = case is_binary(Key) of
         true ->
