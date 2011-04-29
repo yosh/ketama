@@ -44,7 +44,7 @@ spec(I, Exe) ->
      {ketama, start_ketama_server, [Id, Exe]},
      permanent, 2000, worker, [ketama]}.
 
-specs(0, Specs, Exe) ->
+specs(0, Specs, _Exe) ->
     Specs;
 specs(I, Specs, Exe) ->
     specs(I - 1, [spec(I, Exe) | Specs], Exe).
@@ -61,7 +61,7 @@ start_ketama_server(Id, Exe) ->
         process_flag(trap_exit, true),
         Loop = fun(Loop) ->
             receive
-                {'EXIT', From, Reason} ->
+                {'EXIT', _From, _Reason} ->
                     port_close(Port);
                 {getserver, Key, From} ->
                     Port ! {self(), {command, Key}},
