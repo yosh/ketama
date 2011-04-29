@@ -1,5 +1,12 @@
+erlang-ketama (1.0-2) unstable; urgency=low
+
+  * Turn ketama gen_server into a farm of N supervised, registered, exit-trapping processes.
+
+ -- Andrei Soroker <andrei@rd.io>  Fri, 29 Arp 2011 11:57:14 -0700
+
 erlang-ketama (1.0-1) unstable; urgency=low
 
   * Debian packaging.
 
  -- Andrei Soroker <andrei@rd.io>  Mon, 17 Jan 2011 16:51:39 -0800
+
