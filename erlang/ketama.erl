@@ -24,6 +24,10 @@ start_link(ServersFile) ->
 start_link(ServersFile, BinPath) ->
     supervisor:start_link({local, ?MODULE}, ?MODULE, [[ServersFile, BinPath], ?FARM_SIZE]).
 
+getserver(Key) when is_tuple(Key) ->
+    getserver(term_to_binary(Key));
+getserver([Key]) when is_binary(Key) ->
+    getserver(Key);
 getserver(Key) ->
     X = case is_binary(Key) of
         true ->
@@ -33,10 +37,16 @@ getserver(Key) ->
     end,
     Id = list_to_atom("ketama." ++ integer_to_list(X rem ?FARM_SIZE + 1)),
     Id ! {getserver, Key, self()},
-    receive
-        Result ->
-            Result
-    end.
+    GetRes = fun(GetRes) ->
+        receive
+            {server, Result} ->
+                Result;
+            Msg ->
+                self() ! Msg,
+                GetRes(GetRes)
+        end
+    end,        
+    GetRes(GetRes).
 
 spec(I, Exe) ->
     Id = list_to_atom("ketama." ++ integer_to_list(I)),
@@ -62,12 +72,16 @@ start_ketama_server(Id, Exe) ->
         Loop = fun(Loop) ->
             receive
                 {'EXIT', _From, _Reason} ->
-                    port_close(Port);
+                    port_close(Port),
+		            erlang:error(_Reason);
                 {getserver, Key, From} ->
                     Port ! {self(), {command, Key}},
                     receive
                         {Port, {data, Data}} ->
-                            From ! Data,
+                            From ! {server, Data},
+                            Loop(Loop);
+                        Msg ->
+			                self() ! Msg,
                             Loop(Loop)
                         after 1000 -> % if it takes this long, you have serious issues.
                             From ! ketama_port_timeout,
