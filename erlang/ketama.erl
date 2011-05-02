@@ -72,8 +72,7 @@ start_ketama_server(Id, Exe) ->
         Loop = fun(Loop) ->
             receive
                 {'EXIT', _From, _Reason} ->
-                    port_close(Port),
-		            erlang:error(_Reason);
+                    port_close(Port);
                 {getserver, Key, From} ->
                     Port ! {self(), {command, Key}},
                     receive
