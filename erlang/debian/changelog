@@ -1,3 +1,9 @@
+erlang-ketama (1.0-2) unstable; urgency=low
+
+  * Turn gen_server into N supervised, registered, exit-trapping processes.
+
+ -- Andrei Soroker <andrei@rd.io>  Mon, 17 Jan 2011 16:51:39 -0800
+
 erlang-ketama (1.0-1) unstable; urgency=low
 
   * Debian packaging.
