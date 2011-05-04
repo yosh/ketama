@@ -37,16 +37,10 @@ getserver(Key) ->
     end,
     Id = list_to_atom("ketama." ++ integer_to_list(X rem ?FARM_SIZE + 1)),
     Id ! {getserver, Key, self()},
-    GetRes = fun(GetRes) ->
-        receive
-            {server, Result} ->
-                Result;
-            Msg ->
-                self() ! Msg,
-                GetRes(GetRes)
-        end
-    end,        
-    GetRes(GetRes).
+    receive
+        {server, Result} ->
+            Result
+    end.
 
 spec(I, Exe) ->
     Id = list_to_atom("ketama." ++ integer_to_list(I)),
@@ -78,9 +72,6 @@ start_ketama_server(Id, Exe) ->
                     receive
                         {Port, {data, Data}} ->
                             From ! {server, Data},
-                            Loop(Loop);
-                        Msg ->
-			                self() ! Msg,
                             Loop(Loop)
                         after 1000 -> % if it takes this long, you have serious issues.
                             From ! ketama_port_timeout,
