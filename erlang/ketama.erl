@@ -39,7 +39,9 @@ getserver(Key) ->
     Id ! {getserver, Key, self()},
     receive
         {server, Result} ->
-            Result
+            Result;
+        ketama_port_timeout ->
+            ketama_port_timeout
     end.
 
 spec(I, Exe) ->
