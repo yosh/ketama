@@ -23,7 +23,7 @@ MODULES=$(shell echo $(basename $(notdir $(TARGETS))) | sed 's_ _,_g')
 all: $(EBIN_DIR) $(TARGETS)
 
 nif: 
-	gcc -lketama -fPIC -shared -o ketama.so c_src/ketama.c 
+	gcc -lketama -fPIC -shared -o ketama_nif.so c_src/ketama_nif.c 
 
 $(EBIN_DIR)/%.beam: %.erl $(INCLUDES)
 	erlc $(ERLC_OPTS) $<
