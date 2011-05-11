@@ -13,19 +13,27 @@ static int load(ErlNifEnv* env, void** priv_data, ERL_NIF_TERM load_info)
     int arity;
     int version;
     int size;
+    int ret = 0;
 
-    enif_get_tuple(env, load_info, &arity, &tuple);
-    enif_get_int(env, tuple[0], &version);
-    enif_get_int(env, tuple[1], &size);
+    if (!enif_get_tuple(env, load_info, &arity, &tuple) ||
+        !enif_get_int(env, tuple[0], &version) ||
+        !enif_get_int(env, tuple[1], &size))
+    {
+        ret = 1981;        
+    }
 
     size += 1;
 
     char buffer[size];
-    enif_get_string(env, tuple[2], buffer, size, ERL_NIF_LATIN1);
 
-    ketama_roll(&c, buffer);
+    if (!enif_get_string(env, tuple[2], buffer, size, ERL_NIF_LATIN1) ||
+        !ketama_roll(&c, buffer) ||
+        !c)
+    {
+        ret= 1981;
+    }
 
-    return 0;
+    return ret;
 }
 
 static ERL_NIF_TERM getserver(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])

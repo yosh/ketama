@@ -1,7 +1,7 @@
 Source: erlang-ketama
 Section: database
 Priority: optional
-Maintainer: Richard Jones, Esq. <rj@metabrew.com>
+Maintainer: Andrei Soroker, Esq. <andrei@rd.io>
 Build-Depends: debhelper (>= 7.0.50)
 Standards-Version: 3.9.1
 Homepage: http://www.metabrew.com/article/erlang-libketama-driver-consistent-hashing

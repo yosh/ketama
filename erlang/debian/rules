@@ -8,8 +8,11 @@ unexport CFLAGS
 override_dh_auto_test:
 	# 
 
-override_dh_auto_install:
-	# 
+# override_dh_auto_install:
+# 
+
+install: build
+    $(MAKE) DESTDIR=$(CURDIR)/debian/tmp install       
 
 override_dh_installinit:
 	dh_installinit -r

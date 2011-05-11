@@ -6,7 +6,14 @@
 -export([init/2, getserver/1, getserver/2]).
 
 init(NifPath, ServersPath) ->
-    ok = erlang:load_nif(NifPath, {0, length(ServersPath), ServersPath}).
+    % Info =
+    %   {
+    %       Version::integer(),
+    %       ServersPathLength::integer(),
+    %       ServersPath::string()
+    %   }
+    Info = {0, length(ServersPath), ServersPath},
+    ok = erlang:load_nif(NifPath, Info).
 
 getserver(Key) ->
     getserver(length(Key), Key).
