@@ -3,7 +3,7 @@
 % No easy way to use this beauty -- need initialization info from user app.
 % -on_load(init/0).
 
--export([init/2, getserver/1, getserver/2]).
+-export([init/2, c_getserver/1, getserver/1]).
 
 init(NifPath, ServersPath) ->
     % Info =
@@ -15,8 +15,8 @@ init(NifPath, ServersPath) ->
     Info = {0, length(ServersPath), ServersPath},
     ok = erlang:load_nif(NifPath, Info).
 
-getserver(Key) ->
-    getserver(length(Key), Key).
+getserver(Key) when is_binary(Key) ->
+    c_getserver(Key).
 
-getserver(_, _) ->
+c_getserver(_) ->
     "Ketama NIF library not loaded.".

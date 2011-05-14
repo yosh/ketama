@@ -36,21 +36,21 @@ static int load(ErlNifEnv* env, void** priv_data, ERL_NIF_TERM load_info)
     return ret;
 }
 
-static ERL_NIF_TERM getserver(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
+static ERL_NIF_TERM c_getserver(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
-    int size;
-    enif_get_int(env, argv[0], &size);
+    ErlNifBinary keybin;
 
-    size += 1;
-
-    unsigned char key[size];
-    enif_get_string(env, argv[1], key, size, ERL_NIF_LATIN1);
+    if (!enif_inspect_binary(env, argv[0], &keybin)) {
+        return 1983;
+    }
 
     unsigned char buffer[256];
-    mcs *m;
-    m = ketama_get_server( (char *) &buffer, c);
-    sprintf((char *) &buffer, "%s", m->ip);
-
+    unsigned char key[keybin.size + 1];
+    key[keybin.size] = '\0';
+    memcpy(key, keybin.data, keybin.size);
+    mcs* m;
+    m = ketama_get_server(key, c);
+    sprintf((char*) &buffer, "%s", m->ip);
     ErlNifBinary b = {sizeof(unsigned char) * strlen(buffer), buffer}; 
 
     return enif_make_binary(env, &b);
@@ -58,7 +58,7 @@ static ERL_NIF_TERM getserver(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[
 
 static ErlNifFunc nif_funcs[] =
 {
-    {"getserver", 2, getserver}
+    {"c_getserver", 1, c_getserver}
 };
 
 ERL_NIF_INIT(ketama, nif_funcs, load, NULL, NULL, NULL)
