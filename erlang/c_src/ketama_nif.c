@@ -44,14 +44,12 @@ static ERL_NIF_TERM c_getserver(ErlNifEnv* env, int argc, const ERL_NIF_TERM arg
         return 1983;
     }
 
-    unsigned char buffer[256];
     unsigned char key[keybin.size + 1];
     key[keybin.size] = '\0';
     memcpy(key, keybin.data, keybin.size);
     mcs* m;
     m = ketama_get_server(key, c);
-    sprintf((char*) &buffer, "%s", m->ip);
-    ErlNifBinary b = {sizeof(unsigned char) * strlen(buffer), buffer}; 
+    ErlNifBinary b = {sizeof(unsigned char) * strlen(m->ip), m->ip}; 
 
     return enif_make_binary(env, &b);
 }
