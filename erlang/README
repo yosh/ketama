@@ -1,8 +1,6 @@
 Originally, it was this: http://www.metabrew.com/article/erlang-libketama-driver-consistent-hashing.
 
-Our use of this driver at Rdio proved the single gen_server to be an occasional
-bottleneck, so we opted to rewrite the driver with a NIF
-(http://www.erlang.org/doc/man/erl_nif.html), officially supported from R14B.
+Our use of this driver at Rdio proved the single gen_server to be an occasional bottleneck, so we opted to rewrite the driver with a NIF (http://www.erlang.org/doc/man/erl_nif.html), officially supported from R14B.
 
 INSTALL
 make && make install
