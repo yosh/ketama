@@ -1,1 +1,20 @@
-TODO: write README.
+Originally, it was this: http://www.metabrew.com/article/erlang-libketama-driver-consistent-hashing.
+
+Our use of this driver at Rdio proved the single gen_server to be an occasional
+bottleneck, so we opted to rewrite the driver with a NIF
+(http://www.erlang.org/doc/man/erl_nif.html), officially supported from R14B.
+
+INSTALL
+make && make install
+
+INITIALIZATION
+...
+-behavior(application).
+...
+start(normal, []) ->
+    ok = ketama:init("/usr/lib/ketama_nif", "ketama.servers"),
+    ...
+
+USE
+getserver(Key) when is_binary(Key) ->
+    ketama:getserver(Key).

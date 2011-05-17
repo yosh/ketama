@@ -4,6 +4,7 @@ EBIN_DIR=ebin
 LIB_DIR=lib
 ET_DIR=et
 PREFIX=$(DESTDIR)/usr
+ERLANG_KETAMA_EBIN=lib/erlang/lib/erlang-ketama-1.0/ebin
 
 CONTRIBS = $(shell echo `ls -d contrib/*/ 2>/dev/null`)
 CONTRIB_PATH=$(foreach dir, ${CONTRIBS}, -pa $(dir)ebin)
@@ -40,6 +41,13 @@ install:
 	install -d $(PREFIX)/lib
 	install lib/ketama_nif.so.1 $(PREFIX)/lib
 	cd $(PREFIX)/lib && ln -sf ketama_nif.so.1 ketama_nif.so
+	install -d $(PREFIX)/$(ERLANG_KETAMA_EBIN)
+	install ebin/ketama.beam $(PREFIX)/$(ERLANG_KETAMA_EBIN)
+
+uninstall:
+	rm $(PREFIX)/lib/ketama_nif.so
+	rm $(PREFIX)/lib/ketama_nif.so.1
+	rm -fr $(PREFIX)/$(ERLANG_KETAMA_EBIN)
 	
 clean:
 	rm -f ebin/*.beam
