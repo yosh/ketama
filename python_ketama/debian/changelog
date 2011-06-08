@@ -1,0 +1,5 @@
+python-ketama (1.0-1) unstable; urgency=low
+
+  * Debian packaging.
+
+ -- Manish Singh <manish@rd.io>  Tue,  1 Feb 2011 14:48:26 -0800
