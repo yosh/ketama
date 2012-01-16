@@ -8,5 +8,5 @@ Homepage: http://www.metabrew.com/article/erlang-libketama-driver-consistent-has
 
 Package: erlang-ketama
 Architecture: any
-Depends: erlang-base (>= 1:14.b.1-dfsg-1), libketama1 (>= 1.0)
+Depends: erlang-base (>= 1:15.b-dfsg-2), libketama1 (>= 1.0)
 Description: Erlang libketama driver.
