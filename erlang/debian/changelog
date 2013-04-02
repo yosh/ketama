@@ -1,3 +1,9 @@
+erlang-ketama (1.0-8) unstable; urgency=low
+
+  * Build for R16B.
+
+ -- Manish Singh <manish@rd.io>  Tue,  2 Apr 2013 16:46:23 -0700
+
 erlang-ketama (1.0-7) unstable; urgency=low
 
   * Build for R15B01.
