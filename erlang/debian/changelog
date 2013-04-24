@@ -1,3 +1,9 @@
+erlang-ketama (1.0-9) unstable; urgency=low
+
+  * Sane path in erlang dir.
+
+ -- Manish Singh <manish@rd.io>  Tue, 23 Apr 2013 17:39:44 -0700
+
 erlang-ketama (1.0-8) unstable; urgency=low
 
   * Build for R16B.

@@ -4,7 +4,7 @@ EBIN_DIR=ebin
 LIB_DIR=lib
 ET_DIR=et
 PREFIX=$(DESTDIR)/usr
-ERLANG_KETAMA_EBIN=lib/erlang/lib/erlang-ketama-1.0/ebin
+ERLANG_KETAMA_EBIN=lib/erlang/lib/ketama-1.0/ebin
 
 CONTRIBS = $(shell echo `ls -d contrib/*/ 2>/dev/null`)
 CONTRIB_PATH=$(foreach dir, ${CONTRIBS}, -pa $(dir)ebin)
