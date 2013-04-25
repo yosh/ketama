@@ -1,3 +1,9 @@
+erlang-ketama (1.0-10) unstable; urgency=low
+
+  * Support HiPE.
+
+ -- Manish Singh <manish@rd.io>  Thu, 25 Apr 2013 15:48:06 -0700
+
 erlang-ketama (1.0-9) unstable; urgency=low
 
   * Sane path in erlang dir.
